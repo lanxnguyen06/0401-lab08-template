@@ -24,6 +24,7 @@ public class AcademicAnalytics {
         // searchByGPA()
     }
 
+    
     public void sortByGPA() {
         System.out.println("Original List:");
         printStudents(this.students);
@@ -36,7 +37,7 @@ public class AcademicAnalytics {
 
         // MergeSort
         Student[] mergeSortStudents = this.students.clone();
-        MergeSort.sort(quickSortStudents, 0, quickSortStudents.length - 1);
+        MergeSort.sort(mergeSortStudents, 0, mergeSortStudents.length - 1);
         System.out.println("\nSorted by MergeSort:");
         printStudents(mergeSortStudents);
     }
