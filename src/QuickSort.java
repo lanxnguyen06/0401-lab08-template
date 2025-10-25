@@ -6,35 +6,32 @@
 
 public class QuickSort {
 
-    public static void sort(/* TODO: Type */, int left, int right) {
+    public static void sort(Student[] array, int left, int right) {
         if (left < right) {
             // Partitioning index of current pivot element
             int partitioningIndex = partition(array, left, right);
             
             // Preview: A method calling itself is called "recursion".
-            // TODO: define the correct arguments to sort the sub-arrays
-            sort(array, ... );
-            sort(array, ...);
+            sort(array, left, partitioningIndex - 1); // left partition
+            sort(array, partitioningIndex + 1, right); // right partition
         }
     }
 
-    private static int partition(/* TODO: Type */, int left, int right) {
-        // TODO: Select the pivot element
-        /* TODO: Type */ pivot = null;
+    private static int partition(Student[] array, int left, int right) {
+        Student pivot = array[right];
 
-        int i = left - 1;
-        // Reorder the array
+        int i = left - 1; // before first element
         for (int j = left; j < right; j++) {
-            if (array[j].getGPA() <= pivot.getGPA()) {
+            if (array[j].getGPA() >= pivot.getGPA()) {
                 i++;
-                // TODO: reorder the elements
+                Student temp = array[i]; // store temp variable to swap it again
+                array[i] = array[j];
+                array[j] = temp;
             }
         }
-        // TODO: Place pivot element at the correct position in the array
-        // All elements to the left of the pivot are less than or equal to the pivot
-        // All elements to the right of the pivot are greater than the pivot
-
-        // Returns the index of the pivot element
+        Student temp = array[i + 1];
+        array[i + 1] = array[right];
+        array[right] = temp;
         return i + 1;
     }
 }

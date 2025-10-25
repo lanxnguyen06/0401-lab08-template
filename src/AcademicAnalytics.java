@@ -17,12 +17,27 @@ public class AcademicAnalytics {
         Student[] studentGPAData = generateStudentArray(10);
         AcademicAnalytics sortingDemo = new AcademicAnalytics(studentGPAData);
         sortingDemo.sortByGPA();
-        
-        // TODO: Implement a search algorithm that returns an array of students above or below a given GPA
-        // Hint: Define at least one additional method for AcademicAnalytics that invokes this functionality 
-        // Make sure that the array is sorted first!
-        // searchByGPA()
+        sortingDemo.searchByGPA();
+        SortingManager manager = new SortingManager();
+        long mergeTime = manager.performMergeSort(studentGPAData);
+        long quickTime = manager.performQuickSort(studentGPAData);
+        long gpaSearchTime = manager.performGPAsearch(studentGPAData);
+        System.out.println(" ");
+        System.out.println("MergeSort Time: " + mergeTime + " ms");
+        System.out.println("QuickSort Time: " + quickTime + " ms");
+        System.out.println("GPA Search Time: " + gpaSearchTime + " ms");
     }
+
+    public Student[] searchByGPA(){
+        Student [] searchGpa = this.students.clone();
+        MergeSort.sort(searchGpa, 0, searchGpa.length - 1); // use merge sort because that's the one in ascending order
+        Student [] above = GPABinarySearch.search(searchGpa, 1.1, true); // if gpa is above 1.1
+        System.out.println("");
+        System.out.println("Search GPA by threshold above 1.1 GPA");
+        printStudents(above);
+        return above;
+    }
+        
 
     
     public void sortByGPA() {

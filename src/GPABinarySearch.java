@@ -4,32 +4,44 @@
  * Copyright (c) 2025 Nadine von Frankenberg
  */
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class GPABinarySearch {
     // Returns students above or below a GPA threshold using binary search
     // Assumes the array will be sorted before search
     public static Student[] search(Student[] array, double threshold, boolean isAbove) {
-        int cutoffIndex = binarySearch(array, threshold);
+        int cutoffIndex = binarySearch(array, threshold); // finds index of 1st student who's gpa >= threshold
 
-        // TODO: Based on the cutoff index returned by binary search, decide which part of the
-        // array to keep
-        // Hint: You can use Arrays.copyOfRange(array, fromIndex, toIndex) or use a loop!
-        return null;
+        if(cutoffIndex == array.length-1){ // in case only 1 student meets threshold
+            return Arrays.copyOfRange(array, cutoffIndex, array.length);
+        }
+        if (cutoffIndex == -1){ // no students meet threshold
+            return new Student[0]; //if the student with that threshold doesn't exist then it returns array of no students
+        }
+        if (isAbove == true){
+            return Arrays.copyOfRange(array, cutoffIndex, array.length); // returns students who's gpa >= threshold
+        }else{
+            return Arrays.copyOfRange(array, 0, cutoffIndex); // returns students who's gpa < threshold
+        }
     }
 
-    // Binary search for threshold boundary
-    // Binary search’s purpose here is to find the cutoff index (first element where
-    // GPA is >= threshold)
-    private static int binarySearch(Student[] array, double threshold) {
-        // Result default if all GPAs < threshold
-        int result = array.length; // = cutoff is beyond the last index
-        // TODO: Implement
-
-        // Hints: create a loop
-        // calculate the mid element
-        // look right
-
-        return result;
+public static int binarySearch(Student[] array, double threshold) {
+    int result = array.length; 
+    int left = 0;
+    int right = array.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        double gpa = array[mid].getGPA();
+        
+        if (gpa >= threshold) {
+            result = mid;      
+            right = mid - 1;   
+        } else {
+            left = mid + 1;    
+        }
+    }
+    return result;  // returns array.length if all gpas < threshold
     }
 }

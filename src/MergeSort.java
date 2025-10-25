@@ -7,7 +7,7 @@
 public class MergeSort {
 
     // Main function that sorts array[l..r] using merge()
-    static void sort(/* TODO type*/, int left, int right) {
+    static void sort(Student[] array, int left, int right) {
         if (left < right) {
             // Find the middle point
             int mid = left + (right - left) / 2;
@@ -24,16 +24,13 @@ public class MergeSort {
     // Merges two subarrays of array[].
     // Sub-array left: array[l..m]
     // Sub-array right: array[m+1..r]
-    private static void merge(/* TODO type*/, int left, int mid, int right) {
-        // TODO: Define sub-array lengths
-        int leftElementLength;
-        int rightElementLength;
+    private static void merge(Student[] array, int left, int mid, int right) {
+        int leftElementLength = mid - left + 1; // +1 bc inclusive
+        int rightElementLength = right - mid;
 
-        // Define sub-arrays
-        /* TODO type*/ leftSubArray[] = new /* TODO type*/[leftElementLength];
-        /* TODO type*/ rightSubArray[] = new /* TODO type*/[rightElementLength];
+        Student leftSubArray[] = new Student[leftElementLength]; 
+        Student rightSubArray[] = new Student[rightElementLength];
 
-        // Copy data to sub-arrays arrays
         for (int i = 0; i < leftElementLength; ++i) {
             leftSubArray[i] = array[left + i];
         }
@@ -41,10 +38,9 @@ public class MergeSort {
             rightSubArray[j] = array[mid + 1 + j];
         }
 
-        /* Merge the sub-arrays arrays */
-        int i = 0;
-        int j = 0;
-        int k = left;
+        int i = 0; // left subarray index
+        int j = 0; // right subarray index
+        int k = left; // merged array index
         while (i < leftElementLength && j < rightElementLength) {
             if (leftSubArray[i].getGPA() <= rightSubArray[j].getGPA()) {
                 array[k] = leftSubArray[i];
@@ -55,10 +51,13 @@ public class MergeSort {
             }
             k++;
         }
-        // Handle remaining elements that have not yet been added to the main array:
-        // TODO: Copy remaining elements of leftSubArray[], if any
 
-        // TODO: Copy remaining elements of rightSubArray[], if any
+        while (i < leftElementLength){
+            array[k++] = leftSubArray[i++];
+        }
 
+        while (j < rightElementLength){
+            array[k++] = rightSubArray[j++]; 
+        }
     }
 }
